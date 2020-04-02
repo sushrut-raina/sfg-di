@@ -14,7 +14,7 @@
 	</parent>
 	<groupId>sushrut.springdipoc</groupId>
 	<artifactId>spring-di</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>spring-di</name>
 	<description>Dependency injection in spring</description>
 
@@ -53,7 +53,7 @@
 	</build>
 	<scm>
 		<developerConnection>scm:git:https://github.com/sushrut-raina/sfg-di.git</developerConnection>
-	  <tag>spring-di-0.0.1</tag>
+	  <tag>HEAD</tag>
   </scm>
 
 </project>
