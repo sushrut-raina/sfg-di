@@ -1,11 +1,14 @@
 package sushrut.springdipoc.springdi.services.map;
 
+import org.springframework.stereotype.Service;
 import sushrut.springdipoc.springdi.model.Pet;
 import sushrut.springdipoc.springdi.services.CrudService;
+import sushrut.springdipoc.springdi.services.PetService;
 
 import java.util.Set;
 
-public class PetMapService extends AbstractMapService<Pet, Long> implements CrudService<Pet, Long> {
+@Service
+public class PetMapService extends AbstractMapService<Pet, Long> implements PetService {
 
     @Override
     public Set<Pet> findAll() {

@@ -1,11 +1,14 @@
 package sushrut.springdipoc.springdi.services.map;
 
+import org.springframework.stereotype.Service;
 import sushrut.springdipoc.springdi.model.Owner;
 import sushrut.springdipoc.springdi.services.CrudService;
+import sushrut.springdipoc.springdi.services.OwnerService;
 
 import java.util.Set;
 
-public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements CrudService<Owner, Long> {
+@Service
+public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements OwnerService {
 
 
     @Override
@@ -31,5 +34,10 @@ public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements 
     @Override
     public Owner findById(Long id) {
         return super.findById(id);
+    }
+
+    @Override
+    public Owner findByLastName(String lastName) {
+        return null;
     }
 }
