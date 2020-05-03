@@ -2,14 +2,24 @@ package sushrut.springdipoc.springdi.services.map;
 
 import org.springframework.stereotype.Service;
 import sushrut.springdipoc.springdi.model.Owner;
-import sushrut.springdipoc.springdi.services.CrudService;
+import sushrut.springdipoc.springdi.model.Pet;
 import sushrut.springdipoc.springdi.services.OwnerService;
+import sushrut.springdipoc.springdi.services.PetService;
+import sushrut.springdipoc.springdi.services.PetTypeService;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Service
 public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements OwnerService {
 
+    private final PetTypeService petTypeService;
+    private final PetService petService;
+
+    public OwnerServiceMap(PetTypeService petTypeService, PetService petService) {
+        this.petTypeService = petTypeService;
+        this.petService = petService;
+    }
 
     @Override
     public Set<Owner> findAll() {
@@ -28,7 +38,28 @@ public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements 
 
     @Override
     public Owner save(Owner object) {
-        return super.save(object);
+
+        if (!Objects.isNull(object)) {
+            if (!Objects.isNull(object.getPet())) {
+                object.getPet().forEach(pet -> {
+                    if (pet.getPetType() != null) {
+                        if (pet.getPetType().getId() == null) {
+                            pet.setPetType(petTypeService.save(pet.getPetType()));
+                        }
+                    } else {
+                        throw new IllegalStateException("Pet Type is required");
+                    }
+
+                    if (pet.getId() == null) {
+                        Pet savedPet = petService.save(pet);
+                        pet.setId(savedPet.getId());
+                    }
+
+                });
+            }
+            return super.save(object);
+        }
+        return null;
     }
 
     @Override
